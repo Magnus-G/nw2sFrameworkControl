@@ -1,5 +1,7 @@
 for (int row=1; row<noOfRows; row++) { // vertical, outputs. start with output 0... first row
 
+	int patternStart = 1;
+
 	// will the program run for this column?
 	randValueSubtract = random(0, 500);
 	int randAnalogInSubtractFlipped = ::analogRead(DUE_IN_A02);
@@ -7,7 +9,6 @@ for (int row=1; row<noOfRows; row++) { // vertical, outputs. start with output 0
 	if (randValueSubtract > randAnalogInSubtract) {
 
 		// set drumProgram
-
 		int drumProgram = 0;
 
 		// the trigger
@@ -50,4 +51,3 @@ columnToPlay++;
 if (columnToPlay > 15) {
 	columnToPlay = 1;
 }
-} // if time has passed the next COL is run

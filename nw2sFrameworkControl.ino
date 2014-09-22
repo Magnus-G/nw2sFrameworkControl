@@ -13,8 +13,6 @@
 
 void loop() { 
 
-	int patternStart = 1;
-
 	// Master clock
 	int now = millis(); 
 	int delayTime = ::analogRead(DUE_IN_A00);

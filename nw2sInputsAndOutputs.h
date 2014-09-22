@@ -92,3 +92,18 @@ PinDigitalOut digitalOutputs[16] = {
 	DUE_OUT_D15,
 
 };
+
+static const int SEMITONE_MV[12] = {
+    0, 
+    83, 
+    167, 
+    250, 
+    333, 
+    417, 
+    500, 
+    583, 
+    667, 
+    750, 
+    833, 
+    917 
+ }; 

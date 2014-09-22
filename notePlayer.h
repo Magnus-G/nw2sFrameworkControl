@@ -1,8 +1,8 @@
-int noteProgramFlipped = ::analogRead(DUE_IN_A01);
-int noteProgram = (noOfNotePrograms - (constrain(noteProgramFlipped, 0, noOfNotePrograms))) - 1;
-if (noteProgram < 0) { noteProgram = 0; }
-
-Serial.println(noteProgram);
+int setNoteProgramFlipped = ::analogRead(DUE_IN_A01); // Around 2011 - 0
+int setNoteProgram = 2020 - setNoteProgramFlipped; // 0 - 2011
+int setNoteProgramConstrained = constrain(setNoteProgram, 0, 2047);  // 0 - 2047
+int noteProgramScaled = setNoteProgramConstrained >> 7; // 1 - 16
+int noteProgram = constrain(noteProgramScaled, 0, 15); // force it to be between 0 and 15
 
 int noteThatGoesOut1 = (notes1[noteProgram][noteToPlay] * tuning);
 int noteThatGoesOut2 = (notes1[noteProgram][noteToPlay] + noteDistances[0]) * tuning;
@@ -23,12 +23,23 @@ if (digitalRead(digitalInputs[3]) == 1) {
 // if not an empty note
 if (notes1[0][noteToPlay] < 77) {
 
-	// Skip one place in sequence?
+	// // Skip one place in sequence?
 	int randValueNotePlace = random(0, 500);
-	int randValueNotePlaceInputFlipped = ::analogRead(DUE_IN_A11);
-	int randValueNoteInputPlace = 500 - (constrain(randValueNotePlaceInputFlipped, 0, 500));
+	int setRandValueNotePlaceInputFlipped = ::analogRead(DUE_IN_A11);
+	int setRandValueNotePlaceInput = 2020 - setRandValueNotePlaceInputFlipped;
+	int setRandValueNotePlaceInputConstrained = constrain(setRandValueNotePlaceInput, 0, 2047);
+	int setRandValueNotePlaceInputScaled = setRandValueNotePlaceInputConstrained >> 2;
+	int randValueNotePlaceInput = constrain(setRandValueNotePlaceInputScaled, 0, 500);
 
-	if (randValueNotePlace < randValueNoteInputPlace) {
+	Serial.println(randValueNotePlaceInput);
+	Serial.println(randValueNotePlace);
+
+	// // Skip one place in sequence?
+	// int randValueNotePlace = random(0, 500);
+	// int randValueNotePlaceInputFlipped = ::analogRead(DUE_IN_A11);
+	// int randValueNoteInputPlace = 500 - (constrain(randValueNotePlaceInputFlipped, 0, 500));
+
+	if (randValueNotePlace < randValueNotePlaceInput) {
 		noteToPlay++;
 	}
 
@@ -36,6 +47,7 @@ if (notes1[0][noteToPlay] < 77) {
 	int randValueSubtractNote = random(0, 500);
 	int randAnalogInSubtractNoteFlipped = ::analogRead(DUE_IN_A03);
 	int randAnalogInSubtractNote = 500 - (constrain(randAnalogInSubtractNoteFlipped, 0, 500));
+
 	if (randValueSubtractNote < randAnalogInSubtractNote) {
 		playThisNote = 0;
 	}
