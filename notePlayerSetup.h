@@ -1,12 +1,16 @@
+int noteToPlay = 0;
+int tuning = 86; // best so far 85?
+
 int playThisNote = 1;
 int noteDistances[2] = {7, 12};
 const int noteSequenceLength = 16;
-
-// 99 is empty and skip to reset
 const int noOfNotePrograms = 16; // rows below
-int notes1[noOfNotePrograms][noteSequenceLength] = {
+int notes1[noOfNotePrograms][noteSequenceLength] = { 
 
-	{ 1,  2,  3,  4,  5,  6,  7,  8,  9, 10, 11, 12, 13, 14, 15, 16 },
+	// 99 is empty and skip to reset
+	// 66 is skip this note
+
+	{ 0,  1,  2,  3,  4,  5,  6,  7,  8,  9, 10, 11, 12, 13, 14, 15 },
 	{ 1,  1,  8,  8, 10, 10,  8,  0,  6,  6,  5,  5,  3,  3,  1,  0 },
 	{ 1,  3,  4,  6,  8,  9, 11, 13,  1,  3,  4,  6,  8,  9, 11, 13 },
 	{	0,  1,  2,  3,  4,  5,  6,  7,  8,  9, 10, 11, 12, 13, 14, 15 },
@@ -24,12 +28,8 @@ int notes1[noOfNotePrograms][noteSequenceLength] = {
 	{	0,  0,  1,  0,  0,  6,  0,  3,  0,  0,  6,  0,  0,  3,  0,  1 } 
 
 };
-const int noteDistanceFrom1 = 7;
 
+const int noteDistanceFrom1 = 7;
 int notes2[noteSequenceLength];
 const int noteDistanceFrom2 = 5;
-
 int notes3[noteSequenceLength];
-
-int noteToPlay = 0;
-int tuning = 86; // best so far 85?
