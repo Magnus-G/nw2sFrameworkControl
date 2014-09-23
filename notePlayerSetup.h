@@ -1,8 +1,10 @@
-int noteToPlay = 0;
-int tuning = 86; // best so far 85?
+int noteColumnToPlay = 0;
+int asr = 0;
 
 int playThisNote = 1;
-int noteDistances[2] = {7, 12};
+int noteDistances[3] = {0, 7, 12};
+int noteJumps[4] = {0, 0, 2, 2};
+
 const int noteSequenceLength = 16;
 const int noOfNotePrograms = 16; // rows below
 int notes1[noOfNotePrograms][noteSequenceLength] = { 
@@ -28,8 +30,3 @@ int notes1[noOfNotePrograms][noteSequenceLength] = {
 	{	0,  0,  1,  0,  0,  6,  0,  3,  0,  0,  6,  0,  0,  3,  0,  1 } 
 
 };
-
-const int noteDistanceFrom1 = 7;
-int notes2[noteSequenceLength];
-const int noteDistanceFrom2 = 5;
-int notes3[noteSequenceLength];
