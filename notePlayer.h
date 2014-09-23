@@ -1,12 +1,10 @@
 int noteProgram = analogReadFunction(1, 7); // AnalogIn, ShiftRegister
 
-int noteJump1 = analogReadFunction(7, 9); // AnalogIn, ShiftRegister
-int noteJump2 = analogReadFunction(9, 9); // AnalogIn, ShiftRegister
-int noteJump3 = analogReadFunction(11, 9); // AnalogIn, ShiftRegister
+int chord = analogReadFunction(3, 9); // AnalogIn, ShiftRegister
 
-int noteNumber1 = (notes1[noteProgram][noteColumnToPlay] + noteDistances[0] + noteJumps[noteJump1]); // blir en siffra från arrayen
-int noteNumber2 = (notes1[noteProgram][noteColumnToPlay] + noteDistances[1] + noteJumps[noteJump2]); // blir en siffra från arrayen
-int noteNumber3 = (notes1[noteProgram][noteColumnToPlay] + noteDistances[2] + noteJumps[noteJump3]); // blir en siffra från arrayen
+int noteNumber1 = (notes1[noteProgram][noteColumnToPlay] + noteDistances[chord][0]); // blir en siffra från notes-arrayen
+int noteNumber2 = (notes1[noteProgram][noteColumnToPlay] + noteDistances[chord][1]); // blir en siffra från notes-arrayen
+int noteNumber3 = (notes1[noteProgram][noteColumnToPlay] + noteDistances[chord][2]); // blir en siffra från notes-arrayen
 
 int noteThatGoesOut1 = semitones[noteNumber1]; // blir cv-valuet från array
 int noteThatGoesOut2 = semitones[noteNumber2]; // blir cv-valuet från array

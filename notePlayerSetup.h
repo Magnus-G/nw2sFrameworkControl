@@ -2,8 +2,14 @@ int noteColumnToPlay = 0;
 int asr = 0;
 
 int playThisNote = 1;
-int noteDistances[3] = {0, 7, 12};
-int noteJumps[4] = {0, 0, 2, 2};
+const int noOfChords = 4;
+int noteDistances[noOfChords][3] = {
+	{0, 3, 7},
+	{0, 5, 9},
+	{0, 7, 10},
+	{0, 7, 12}
+};
+// int noteJumps[4] = {0, 0, 2, 2};
 
 const int noteSequenceLength = 16;
 const int noOfNotePrograms = 16; // rows below
