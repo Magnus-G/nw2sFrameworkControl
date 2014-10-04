@@ -19,6 +19,10 @@ void loop() {
 	int delayTimeConstrained = constrain(delayTime, 0, 4095); 
 	int timerTestValue = delayTimeConstrained + lastColumnPlayed; 
 
+	int noteProgram = analogReadFunction(1, 7); // AnalogIn, ShiftRegister
+	int chord = analogReadFunction(3, 9); 			// AnalogIn, ShiftRegister
+	int noteIn = analogReadFunction(5, 7);			// AnalogIn, ShiftRegister
+
 	if (now > timerTestValue) {
 		#include "notePlayer.h";
 		#include "drumPlayer.h"

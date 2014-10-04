@@ -14,7 +14,7 @@ for (int row=1; row<noOfRows; row++) { // vertical, outputs. start with output 0
 		if (drums[drumProgram][row-1][columnToPlay-1] == 1) {
 			digitalWrite(digitalOutputs[row-1], HIGH);
 
-			// outputs[row-1]->outputCV(thing[row-1][counter]); 
+			outputs[row-1]->outputCV(semitones[notes1[noteProgram][noteColumnToPlay] + noteDistances[chord][0]]); 
 		}
 		
 		// the 1 or 0 from the pattern is added to isThisATrigger

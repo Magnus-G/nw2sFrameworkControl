@@ -1,6 +1,6 @@
-int noteProgram = analogReadFunction(1, 7); // AnalogIn, ShiftRegister
-int chord = analogReadFunction(3, 9); 			// AnalogIn, ShiftRegister
-int noteIn = analogReadFunction(5, 7);			// AnalogIn, ShiftRegister
+// int noteProgram = analogReadFunction(1, 7); // AnalogIn, ShiftRegister
+// int chord = analogReadFunction(3, 9); 			// AnalogIn, ShiftRegister
+// int noteIn = analogReadFunction(5, 7);			// AnalogIn, ShiftRegister
 
 int noteNumber1;
 int noteNumber2;
