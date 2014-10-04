@@ -1,3 +1,21 @@
+static const int thing[13][3] = {
+	{0, 83, 167},
+	{0, 83, 167},
+	{0, 83, 167},
+	{0, 83, 167},
+	{0, 83, 167},
+	{0, 83, 167},
+	{0, 83, 167},
+	{0, 83, 167},
+	{0, 83, 167},
+	{0, 83, 167},
+	{0, 83, 167},
+	{0, 83, 167},
+	{0, 83, 167},
+};
+
+
+
 int const noOfDrumPrograms = 1;
 int const noOfRows = 13;
 int drums[noOfDrumPrograms][noOfRows][16] = {
@@ -33,8 +51,8 @@ int everyOtherTrigger[noOfRows] = {1,1,1,1,1,1,1,1};
 int pinOffset = 22;
 
 // randomization/probability
-int randValueSubtract = 1023;
-int randValueAdd = 1023;
+int randValueRemove = 0;
+int randValueAdd = 0;
 
 // for the on/off switch on clock in
 int inputIsHigh = 0;

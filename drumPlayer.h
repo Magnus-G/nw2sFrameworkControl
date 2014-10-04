@@ -3,10 +3,9 @@ for (int row=1; row<noOfRows; row++) { // vertical, outputs. start with output 0
 	int patternStart = 1;
 
 	// will the program run for this column?
-	randValueSubtract = random(0, 500);
-	int randAnalogInSubtractFlipped = ::analogRead(DUE_IN_A02);
-	int randAnalogInSubtract = 500 - (constrain(randAnalogInSubtractFlipped, 0, 500));
-	if (randValueSubtract > randAnalogInSubtract) {
+	randValueRemove = random(1, 15);
+	int randRemove = analogReadFunction(2, 7); // AnalogIn, ShiftRegister
+	if (randValueRemove > randRemove) {
 
 		// set drumProgram
 		int drumProgram = 0;
@@ -14,16 +13,18 @@ for (int row=1; row<noOfRows; row++) { // vertical, outputs. start with output 0
 		// the trigger
 		if (drums[drumProgram][row-1][columnToPlay-1] == 1) {
 			digitalWrite(digitalOutputs[row-1], HIGH);
+
+			// outputs[row-1]->outputCV(thing[row-1][counter]); 
 		}
 		
 		// the 1 or 0 from the pattern is added to isThisATrigger
 		isThisATrigger[row-1] = drums[drumProgram][row-1][columnToPlay-1]; // give isThisATrigger a 1 or 0 depending on hit or not
 
 		// a 1 is added to isThisATrigger anyway... maybe
-		randValueAdd = random(0, 5000);
-		int randAnalogInAddFlipped = ::analogRead(DUE_IN_A04);
-		int randAnalogInAdd = 500 - (constrain(randAnalogInAddFlipped, 0, 500));
-		if (randValueAdd < randAnalogInAdd) {
+		randValueAdd = random(1, 15);
+		int randAdd = analogReadFunction(4, 7); // AnalogIn, ShiftRegister
+
+		if (randValueAdd < randAdd) {
 			digitalWrite(digitalOutputs[row-1], HIGH);
 			isThisATrigger[row-1] = 1;
 		}

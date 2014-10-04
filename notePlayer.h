@@ -1,6 +1,6 @@
 int noteProgram = analogReadFunction(1, 7); // AnalogIn, ShiftRegister
 int chord = analogReadFunction(3, 9); 			// AnalogIn, ShiftRegister
-int noteIn = analogReadFunction(5, 7);						// AnalogIn, ShiftRegister
+int noteIn = analogReadFunction(5, 7);			// AnalogIn, ShiftRegister
 
 int noteNumber1;
 int noteNumber2;
@@ -58,6 +58,7 @@ else {
 	outputs[13]->outputCV(noteThatGoesOut1);
 	outputs[14]->outputCV(noteThatGoesOut2);
 	outputs[15]->outputCV(noteThatGoesOut3);   
+	// TODO if the one before is the same, don't send a trig.
 	digitalWrite(digitalOutputs[13], HIGH);
 	digitalWrite(digitalOutputs[13], LOW);	
 	digitalWrite(digitalOutputs[14], HIGH);

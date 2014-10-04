@@ -16,7 +16,8 @@ void loop() {
 	// Master clock
 	int now = millis(); 
 	int delayTime = ::analogRead(DUE_IN_A00);
-	int timerTestValue = delayTime + lastColumnPlayed; 
+	int delayTimeConstrained = constrain(delayTime, 0, 4095); 
+	int timerTestValue = delayTimeConstrained + lastColumnPlayed; 
 
 	if (now > timerTestValue) {
 		#include "notePlayer.h";
