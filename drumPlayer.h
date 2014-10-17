@@ -3,8 +3,6 @@ for (int row=1; row<noOfRows; row++) { // vertical, outputs. start with output 0
 	int patternStart = 1;
 
 	// will the program run for this column?
-	randValueRemove = random(1, 15);
-	int randRemove = analogReadFunction(2, 7); // AnalogIn, ShiftRegister
 	if (randValueRemove > randRemove) {
 
 		// set drumProgram
@@ -20,15 +18,10 @@ for (int row=1; row<noOfRows; row++) { // vertical, outputs. start with output 0
 		// the 1 or 0 from the pattern is added to isThisATrigger
 		isThisATrigger[row-1] = drums[drumProgram][row-1][columnToPlay-1]; // give isThisATrigger a 1 or 0 depending on hit or not
 
-		// a 1 is added to isThisATrigger anyway... maybe
-		randValueAdd = random(1, 15);
-		int randAdd = analogReadFunction(4, 7); // AnalogIn, ShiftRegister
-
 		if (randValueAdd < randAdd) {
 			digitalWrite(digitalOutputs[row-1], HIGH);
 			isThisATrigger[row-1] = 1;
 		}
-
 
 		// check if gate should be turned off or kept open
 		if (isThisATrigger[row-1] == 1) { // if this is a hit

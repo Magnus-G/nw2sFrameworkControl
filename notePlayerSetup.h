@@ -1,6 +1,9 @@
 int noteColumnToPlay = 0;
 int asr = 0;
 
+int noteThatGoesOut[3];
+int noteThatWentOut[3];
+
 int playThisNote = 1;
 const int noOfChords = 4;
 int noteDistances[noOfChords][3] = {
