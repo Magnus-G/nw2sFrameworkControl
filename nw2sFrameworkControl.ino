@@ -19,21 +19,29 @@ void loop() {
 	int delayTimeConstrained = constrain(delayTime, 0, 4095); 
 	int timerTestValue = delayTimeConstrained + lastColumnPlayed; 
 
+	////////////////////////////////////////////////////////
+	//
+	//    ANALOG IN POTS (AnalogIn, ShiftRegister)
+	//
+	////////////////////////////////////////////////////////
+
 	randValueRemove = random(1, 15);
-	int randRemove = analogReadFunction(2, 7); // AnalogIn, ShiftRegister
-
-	// a 1 is added to isThisATrigger anyway... maybe
+	int randRemove = analogReadFunction(2, 7); // a 1 is removed from isThisATrigger ... maybe
+	
 	randValueAdd = random(1, 15);
-	int randAdd = analogReadFunction(4, 7); // AnalogIn, ShiftRegister
+	int randAdd = analogReadFunction(4, 7); // a 1 is added to isThisATrigger anyway... maybe
 
-	// select note program
-	int noteProgram = analogReadFunction(1, 7); // AnalogIn, ShiftRegister
+	////////////////////////////////////////////////////////
 
-	// chord structure, distances between three notes
-	int chord = analogReadFunction(3, 9); 			// AnalogIn, ShiftRegister
+	int noteProgram = analogReadFunction(1, 10); // select note program
 
-	// if digital 8 is on then external control of play order
-	int noteIn = analogReadFunction(11, 7);			// AnalogIn, ShiftRegister
+	int chord = analogReadFunction(3, 9); // chord structure, distances between three notes
+
+	int baseNote = analogReadFunction(5, 7); // send in cv to set base note (transposing first note)
+
+	int noteIn = analogReadFunction(11, 7);	 // if digital 8 is on then external control of play order
+
+	////////////////////////////////////////////////////////
 
 	if (now > timerTestValue) {
 		#include "notePlayer.h";

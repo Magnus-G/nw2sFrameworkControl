@@ -106,6 +106,7 @@ static const int semitones[48] = {
   750, 
   833, 
   917,
+
   1000, 
   1083, 
   1167, 
@@ -118,6 +119,7 @@ static const int semitones[48] = {
   1750, 
   1833, 
   1917,
+
   2000, 
   2083, 
   2167, 
@@ -130,6 +132,7 @@ static const int semitones[48] = {
   2750, 
   2833, 
   2917,
+  
   3000, 
   3083, 
   3167, 

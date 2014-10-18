@@ -6,16 +6,16 @@ int noteNumber3;
 
 // Read note from A5 if Digital In 7 is ON
 if (digitalRead(digitalInputs[8]) == 1) {
-	noteNumber1 = (notes1[noteProgram][noteIn] + noteDistances[chord][0]); // blir en siffra från notes-arrayen
-	noteNumber2 = (notes1[noteProgram][noteIn] + noteDistances[chord][1]); // blir en siffra från notes-arrayen
-	noteNumber3 = (notes1[noteProgram][noteIn] + noteDistances[chord][2]); // blir en siffra från notes-arrayen
+	noteNumber1 = (notes1[noteProgram][noteIn] + noteDistances[chord][0] + baseNote); // blir en siffra från notes-arrayen
+	noteNumber2 = (notes1[noteProgram][noteIn] + noteDistances[chord][1] + baseNote); // blir en siffra från notes-arrayen
+	noteNumber3 = (notes1[noteProgram][noteIn] + noteDistances[chord][2] + baseNote); // blir en siffra från notes-arrayen
 }
 
 // Read note from array notes[][] if Digital In 7 is OFF
 else {
-	noteNumber1 = (notes1[noteProgram][noteColumnToPlay] + noteDistances[chord][0]); // blir en siffra från notes-arrayen
-	noteNumber2 = (notes1[noteProgram][noteColumnToPlay] + noteDistances[chord][1]); // blir en siffra från notes-arrayen
-	noteNumber3 = (notes1[noteProgram][noteColumnToPlay] + noteDistances[chord][2]); // blir en siffra från notes-arrayen
+	noteNumber1 = (notes1[noteProgram][noteColumnToPlay] + noteDistances[chord][0] + baseNote); // blir en siffra från notes-arrayen
+	noteNumber2 = (notes1[noteProgram][noteColumnToPlay] + noteDistances[chord][1] + baseNote); // blir en siffra från notes-arrayen
+	noteNumber3 = (notes1[noteProgram][noteColumnToPlay] + noteDistances[chord][2] + baseNote); // blir en siffra från notes-arrayen
 }
 
 noteThatGoesOut[0] = semitones[noteNumber1]; // blir cv-valuet från array
