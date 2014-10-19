@@ -62,3 +62,6 @@ int eighth = 0;
 
 
 int envelope[noOfRows] = {0,0,0,0,0,0,0,0,0,0,0};
+int envelopeMax = 2000;
+int decayIncrementSteps = 100;
+int decayIncrementCurrentOne = 1;

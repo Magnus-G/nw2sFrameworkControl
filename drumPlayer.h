@@ -19,7 +19,7 @@ for (int row=1; row<noOfRows; row++) { // vertical, outputs. start with output 0
 
 			// send ASRD on analog out
 			else if (digitalRead(digitalInputs[1]) == 0) {
-				envelope[row-1] = 2000;
+				envelope[row-1] = envelopeMax;
 				outputs[row-1]->outputCV(envelope[row-1]); 
 			}
 		}

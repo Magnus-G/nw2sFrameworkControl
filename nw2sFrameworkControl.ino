@@ -52,14 +52,26 @@ void loop() {
 		#include "drumPlayer.h"
 	}
 
-	// decrease the Envelopes
-	if (digitalRead(digitalInputs[1]) == 0) {
-		for (int row=1; row<noOfRows; row++) { 
-			envelope[row-1] -= envelopeDecay;
-			if (envelope[row-1] < 0) {
-				envelope[row-1] = 0;
+	// each decay increment will be this long
+	int decayIncrementValue = delayTimeConstrained / decayIncrementSteps;
+
+	if (now > (lastColumnPlayed + (decayIncrementValue * decayIncrementCurrentOne))) {
+
+		// decrease the Envelopes
+		if (digitalRead(digitalInputs[1]) == 0) {
+			for (int row=1; row<noOfRows; row++) { 
+				envelope[row-1] -= (envelopeMax / decayIncrementSteps);
+				if (envelope[row-1] < 0) {
+					envelope[row-1] = 0;
+				}
+				outputs[row-1]->outputCV(envelope[row-1]); 
 			}
-			outputs[row-1]->outputCV(envelope[row-1]); 
+		}
+
+		decayIncrementCurrentOne++;
+
+		if(decayIncrementCurrentOne == decayIncrementSteps) {
+			decayIncrementCurrentOne = 1;
 		}
 	}
 }
