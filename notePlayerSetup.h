@@ -7,22 +7,22 @@ int noteThatWentOut[4];
 int playThisNote = 1;
 const int noOfChords = 4;
 int noteDistances[noOfChords][4] = {
-	{0, 3, 7, 11},
-	{0, 5, 9, 11},
-	{0, 7, 10, 11},
-	{0, 7, 12, 11}
+	{0, 3, 7, 12},
+	{0, 5, 9, 12},
+	{0, 7, 10, 12},
+	{0, 7, 12, 12}
 };
 // int noteJumps[4] = {0, 0, 2, 2};
 
-const int noteSequenceLength = 16;
+const int noteSequenceLength = 32;
 const int noOfNotePrograms = 2; // rows below
 int notes1[noOfNotePrograms][noteSequenceLength] = { 
 
 	// 99 is empty and skip to reset
 	// 66 is skip this note
 
-	{ 0,  1,  2,  3,  4,  5,  6,  7,  8,  9, 10, 11, 12, 13, 14, 15 },
-	{ 0,  1,  2,  3,  4,  15,  6,  7,  8,  9, 10, 11, 12, 13, 14, 15 }
+	{ 0,  1,  2,  3,  4,  5,  6,  7,  8,  9, 10, 11, 12, 13, 14, 15 , 0,  1,  2,  3,  4,  5,  6,  7,  8,  9, 10, 11, 12, 13, 14, 15 },
+	{ 0,  1,  2,  3,  4,  15,  6,  7,  8,  9, 10, 11, 12, 13, 14, 15, 0,  1,  2,  3,  4,  15,  6,  7,  8,  9, 10, 11, 12, 13, 14, 15 }
 	// { 1,  1,  8,  8, 10, 10,  8,  0,  6,  6,  5,  5,  3,  3,  1,  0 },
 	// { 1,  3,  4,  6,  8,  9, 11, 13,  1,  3,  4,  6,  8,  9, 11, 13 },
 	// {	0,  1,  2,  3,  4,  5,  6,  7,  8,  9, 10, 11, 12, 13, 14, 15 },

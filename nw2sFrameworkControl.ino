@@ -8,6 +8,7 @@
 
 #include "nw2sInputsAndOutputs.h";
 #include "drumSetup.h";
+#include "envelopeSetup.h";
 #include "notePlayerSetup.h";
 #include "setup.h";
 
@@ -32,6 +33,8 @@ void loop() {
 	randValueAdd = random(1, 15);
 	int randAdd = analogReadFunction(4, 7); // a 1 is added to isThisATrigger anyway... maybe
 
+	int envelopeDecay = analogReadFunction(6, 2); 
+
 	////////////////////////////////////////////////////////
 
 	int noteProgram = analogReadFunction(1, 10); // select note program
@@ -48,16 +51,33 @@ void loop() {
 		#include "notePlayer.h";
 		#include "drumPlayer.h"
 	}
+
+	// decrease the Envelopes
+	if (digitalRead(digitalInputs[1]) == 0) {
+		for (int row=1; row<noOfRows; row++) { 
+			envelope[row-1] -= envelopeDecay;
+			if (envelope[row-1] < 0) {
+				envelope[row-1] = 0;
+			}
+			outputs[row-1]->outputCV(envelope[row-1]); 
+		}
+	}
 }
+
+
+
+
+
 
 // Functions //////////////////////////////////////////////////////
 
-int analogReadFunction(int x, int y) {
-	int settingFlipped = ::analogRead(inputs[x]); // Around 2011 - 0
+int analogReadFunction(int input, int shift) {
+	int settingFlipped = ::analogRead(inputs[input]); // Around 2011 - 0
 	int setting = 2020 - settingFlipped; // 0 - 2011
 	int settingConstrained = constrain(setting, 0, 2047);  // 0 - 2047
-	int settingScaled = settingConstrained >> y; // 1 - 16
-	int result = constrain(settingScaled, 0, 15); // force it to be between 0 and 15	
+	int settingScaled = settingConstrained >> shift; // 1 - 16
+	// int result = constrain(settingScaled, 0, 15); // force it to be between 0 and 15	
+	int result = settingScaled; // force it to be between 0 and 15	
 	return result;
 }
 
