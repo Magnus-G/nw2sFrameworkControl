@@ -12,7 +12,7 @@ for (int row=1; row<noOfRows; row++) { // vertical, outputs. start with output 0
 		if (drums[drumProgram][row-1][columnToPlay-1] == 1) {
 			digitalWrite(digitalOutputs[row-1], HIGH);
 
-			outputs[row-1]->outputCV(semitones[notes1[noteProgram][noteColumnToPlay] + noteDistances[chord][0]]); 
+			outputs[row-1]->outputCV(semitones[notes1[noteProgram][noteColumnToPlay] + noteDistances[chord][0] + baseNote]); 
 		}
 		
 		// the 1 or 0 from the pattern is added to isThisATrigger
@@ -42,6 +42,6 @@ lastColumnPlayed = now; // blir 100
 
 columnToPlay++;
 
-if (columnToPlay > 15) {
+if (columnToPlay > (noOfColumns - 1)) {
 	columnToPlay = 1;
 }

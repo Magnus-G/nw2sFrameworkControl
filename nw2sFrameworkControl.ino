@@ -15,15 +15,16 @@ void loop() {
 
 	// Master clock
 	int now = millis(); 
-	int delayTime = ::analogRead(DUE_IN_A00);
-	int delayTimeConstrained = constrain(delayTime, 0, 4095); 
-	int timerTestValue = delayTimeConstrained + lastColumnPlayed; 
 
 	////////////////////////////////////////////////////////
 	//
-	//    ANALOG IN POTS (AnalogIn, ShiftRegister)
+	//    ANALOG IN POTS (AnalogIn, ShiftRegister) 
 	//
 	////////////////////////////////////////////////////////
+
+	int delayTime = ::analogRead(DUE_IN_A00);
+	int delayTimeConstrained = constrain(delayTime, 0, 4095); 
+	int timerTestValue = delayTimeConstrained + lastColumnPlayed; 
 
 	randValueRemove = random(1, 15);
 	int randRemove = analogReadFunction(2, 7); // a 1 is removed from isThisATrigger ... maybe
@@ -48,6 +49,8 @@ void loop() {
 		#include "drumPlayer.h"
 	}
 }
+
+// Functions //////////////////////////////////////////////////////
 
 int analogReadFunction(int x, int y) {
 	int settingFlipped = ::analogRead(inputs[x]); // Around 2011 - 0
