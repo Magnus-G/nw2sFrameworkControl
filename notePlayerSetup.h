@@ -1,16 +1,16 @@
 int noteColumnToPlay = 0;
 int asr = 0;
 
-int noteThatGoesOut[3];
-int noteThatWentOut[3];
+int noteThatGoesOut[4];
+int noteThatWentOut[4];
 
 int playThisNote = 1;
 const int noOfChords = 4;
-int noteDistances[noOfChords][3] = {
-	{0, 3, 7},
-	{0, 5, 9},
-	{0, 7, 10},
-	{0, 7, 12}
+int noteDistances[noOfChords][4] = {
+	{0, 3, 7, 11},
+	{0, 5, 9, 11},
+	{0, 7, 10, 11},
+	{0, 7, 12, 11}
 };
 // int noteJumps[4] = {0, 0, 2, 2};
 

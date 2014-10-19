@@ -61,22 +61,22 @@ int analogReadFunction(int x, int y) {
 	return result;
 }
 
-int playNoteTriggerFunction(int x, int y) {
+int playNoteTriggerFunction(int output, int asrStep) {
 
 	if (digitalRead(digitalInputs[6]) == 1) {
-		outputs[x]->outputCV(noteThatGoesOut[y]); 
+		outputs[output]->outputCV(noteThatGoesOut[asrStep]); 
 
-		if (noteThatGoesOut[y] != noteThatWentOut[y]) {
-			digitalWrite(digitalOutputs[x], HIGH);
+		if (noteThatGoesOut[asrStep] != noteThatWentOut[asrStep]) {
+			digitalWrite(digitalOutputs[output], HIGH);
 			delay(1);
-			digitalWrite(digitalOutputs[x], LOW);	
+			digitalWrite(digitalOutputs[output], LOW);	
 		}
-		noteThatWentOut[y] = noteThatGoesOut[y];
+		noteThatWentOut[asrStep] = noteThatGoesOut[asrStep];
 	}
 	else {
-		outputs[x]->outputCV(noteThatGoesOut[y]); 
-		digitalWrite(digitalOutputs[x], HIGH);
+		outputs[output]->outputCV(noteThatGoesOut[asrStep]); 
+		digitalWrite(digitalOutputs[output], HIGH);
 		delay(1);
-		digitalWrite(digitalOutputs[x], LOW);	
+		digitalWrite(digitalOutputs[output], LOW);	
 	}
 }
