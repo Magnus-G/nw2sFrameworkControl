@@ -63,6 +63,7 @@ int analogReadFunction(int x, int y) {
 
 int playNoteTriggerFunction(int output, int asrStep) {
 
+	// Don't send trig if previous note is the same as this one.
 	if (digitalRead(digitalInputs[6]) == 1) {
 		outputs[output]->outputCV(noteThatGoesOut[asrStep]); 
 
@@ -73,6 +74,7 @@ int playNoteTriggerFunction(int output, int asrStep) {
 		}
 		noteThatWentOut[asrStep] = noteThatGoesOut[asrStep];
 	}
+	// Always send note
 	else {
 		outputs[output]->outputCV(noteThatGoesOut[asrStep]); 
 		digitalWrite(digitalOutputs[output], HIGH);

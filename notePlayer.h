@@ -1,33 +1,24 @@
-int noteNumber1;
-int noteNumber2;
-int noteNumber3;
-int noteNumber4;
+int noteNumber[4];
 
 //////////////////////////////////////////////////////
 
 // Read note from A5 if Digital In 7 is ON
 if (digitalRead(digitalInputs[8]) == 1) {
-	// for(int i=0;  ) {
-
-	// }
-	noteNumber1 = (notes1[noteProgram][noteIn] + noteDistances[chord][0] + baseNote); // blir en siffra från notes-arrayen
-	noteNumber2 = (notes1[noteProgram][noteIn] + noteDistances[chord][1] + baseNote); // blir en siffra från notes-arrayen
-	noteNumber3 = (notes1[noteProgram][noteIn] + noteDistances[chord][2] + baseNote); // blir en siffra från notes-arrayen
-	noteNumber4 = (notes1[noteProgram][noteIn] + noteDistances[chord][3] + baseNote); // blir en siffra från notes-arrayen
+	for(int i=0; i<4; i++) {
+		noteNumber[i] = (notes1[noteProgram][noteIn] + noteDistances[chord][i] + baseNote); // blir en siffra från notes-arrayen
+	}
 }
 
 // Read note from array notes[][] if Digital In 7 is OFF
 else {
-	noteNumber1 = (notes1[noteProgram][noteColumnToPlay] + noteDistances[chord][0] + baseNote); // blir en siffra från notes-arrayen
-	noteNumber2 = (notes1[noteProgram][noteColumnToPlay] + noteDistances[chord][1] + baseNote); // blir en siffra från notes-arrayen
-	noteNumber3 = (notes1[noteProgram][noteColumnToPlay] + noteDistances[chord][2] + baseNote); // blir en siffra från notes-arrayen
-	noteNumber4 = (notes1[noteProgram][noteColumnToPlay] + noteDistances[chord][3] + baseNote); // blir en siffra från notes-arrayen
+	for(int i=0; i<4; i++) {
+		noteNumber[i] = (notes1[noteProgram][noteColumnToPlay] + noteDistances[chord][i] + baseNote); // blir en siffra från notes-arrayen
+	}
 }
 
-noteThatGoesOut[0] = semitones[noteNumber1]; // blir cv-valuet från array
-noteThatGoesOut[1] = semitones[noteNumber2]; // blir cv-valuet från array
-noteThatGoesOut[2] = semitones[noteNumber3]; // blir cv-valuet från array
-noteThatGoesOut[3] = semitones[noteNumber4]; // blir cv-valuet från array
+for(int i=0; i<4; i++) {
+	noteThatGoesOut[i] = semitones[noteNumber[i]]; // blir cv-valuet från array
+}
 
 //////////////////////////////////////////////////////
 
