@@ -23,6 +23,19 @@ void loop() {
 	//
 	////////////////////////////////////////////////////////
 
+	// Start out by setting the clockState to false in init() 
+	// Every loop() check digitalRead(clkIn) 
+	// If clkIn true AND clockState is false, then that's the rising edge. 
+	  
+	//  - On the rising edge set clockState to true 
+	//  - On the rising edge do whatever you need to do on a clock cycle 
+
+	// If clkIn is true and clockState is true, then it's not a rising edge or a falling edge so do nothing. 
+	// If clkIn is false and clockState is true, then it's a falling edge 
+	//  - On the falling edge reset clockState to false 
+
+	int drumProgram = 0;
+
 	int delayTime = ::analogRead(DUE_IN_A00);
 	int delayTimeConstrained = constrain(delayTime, 0, 4095); 
 	int timerTestValue = delayTimeConstrained + lastColumnPlayed; 
@@ -33,7 +46,8 @@ void loop() {
 	randValueAdd = random(1, 15);
 	int randAdd = analogReadFunction(4, 7); // a 1 is added to isThisATrigger anyway... maybe
 
-	int envelopeDecay = analogReadFunction(6, 2); 
+	int envelopeDecay = analogReadFunction(6, 6); 
+	int envelopeZeroDecay = 16;
 
 	////////////////////////////////////////////////////////
 
@@ -53,28 +67,57 @@ void loop() {
 	}
 
 	// each decay increment will be this long
-	int decayIncrementValue = delayTimeConstrained / decayIncrementSteps;
+	int envelopeIncrementValue = delayTimeConstrained / envelopeIncrementSteps;
 
-	if (now > (lastColumnPlayed + (decayIncrementValue * decayIncrementCurrentOne))) {
+	if (now > (lastColumnPlayed + (envelopeIncrementValue * envelopeIncrementCurrentOne))) {
 
-		// decrease the Envelopes
+		// envelopes or levels
 		if (digitalRead(digitalInputs[1]) == 0) {
-			for (int row=1; row<noOfRows; row++) { 
-				envelope[row-1] -= (envelopeMax / decayIncrementSteps);
-				if (envelope[row-1] < 0) {
-					envelope[row-1] = 0;
+
+
+			// int envelope[noOfRows] = {0,0,0,0,0,0,0,0,0,0,0};
+			// int envelopeMax = 2560;
+			// int envelopeIncrementSteps = 80;
+			// int envelopeIncrementCurrentOne = 1;
+
+			// Serial.print("envelopeDecay: ");
+			// Serial.println(envelopeDecay);
+
+			// Serial.print("envelopeZeroDecay: ");
+			// Serial.println(envelopeZeroDecay);
+
+			// decrease the Envelopes
+			if(envelopeDecay > envelopeZeroDecay) {
+				for (int row=1; row<noOfRows; row++) { 
+					int envelopeDecreasePerStep = (envelopeMax / envelopeIncrementSteps) * 2;
+					envelope[row-1] -= envelopeDecreasePerStep * (envelopeDecreasePerStep / envelopeDecay); // 2560 div by 80 is 32 
+					if (envelope[row-1] < 0) {
+						envelope[row-1] = 0;
+					}
+					outputs[row-1]->outputCV(envelope[row-1]); 
 				}
-				outputs[row-1]->outputCV(envelope[row-1]); 
+			}
+
+			// if negative decay
+			else if(envelopeDecay < envelopeZeroDecay) {
+				for (int row=1; row<noOfRows; row++) { 
+					int envelopeIncreasePerStep = envelopeMax / envelopeIncrementSteps;
+					envelope[row-1] += envelopeIncreasePerStep * (envelopeIncreasePerStep / envelopeDecay+1); // 2560 div by 80 is 32 
+					if (envelope[row-1] > envelopeMax) {
+						envelope[row-1] = 0;
+					}
+					outputs[row-1]->outputCV(envelope[row-1]); 
+				}	
+			}
+
+			envelopeIncrementCurrentOne++;
+
+			if(envelopeIncrementCurrentOne == envelopeIncrementSteps) {
+				envelopeIncrementCurrentOne = 1;
 			}
 		}
-
-		decayIncrementCurrentOne++;
-
-		if(decayIncrementCurrentOne == decayIncrementSteps) {
-			decayIncrementCurrentOne = 1;
-		}
 	}
-}
+} // loop
 
 
 

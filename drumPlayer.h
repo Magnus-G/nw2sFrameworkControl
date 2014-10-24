@@ -5,10 +5,7 @@ for (int row=1; row<noOfRows; row++) { // vertical, outputs. start with output 0
 	// will the program run for this column?
 	if (randValueRemove > randRemove) {
 
-		// set drumProgram
-		int drumProgram = 0;
-
-		// the trigger
+		// if this is a trigger
 		if (drums[drumProgram][row-1][columnToPlay-1] == 1) {
 			digitalWrite(digitalOutputs[row-1], HIGH);
 
@@ -17,10 +14,13 @@ for (int row=1; row<noOfRows; row++) { // vertical, outputs. start with output 0
 				outputs[row-1]->outputCV(semitones[notes1[noteProgram][noteColumnToPlay] + noteDistances[chord][0] + baseNote]); 
 			}
 
-			// send ASRD on analog out
+			// send falling Envelope on analog out?
 			else if (digitalRead(digitalInputs[1]) == 0) {
-				envelope[row-1] = envelopeMax;
-				outputs[row-1]->outputCV(envelope[row-1]); 
+
+				if(envelopeDecay > envelopeZeroDecay) {
+					envelope[row-1] = envelopeMax; // start at max and go down
+					outputs[row-1]->outputCV(envelope[row-1]); 
+				}
 			}
 		}
 		
@@ -45,6 +45,36 @@ for (int row=1; row<noOfRows; row++) { // vertical, outputs. start with output 0
 			}
 		}  
 	} // rand subtract
+
+
+
+
+	if (columnToPlay < noOfColumns) {
+		if (drums[drumProgram][row-1][columnToPlay] == 1) {
+			// send rising Envelope on analog out?
+			if (digitalRead(digitalInputs[1]) == 0) {
+				if(envelopeDecay < envelopeZeroDecay) {
+					envelope[row-1] = 0; // start at max and go down
+					outputs[row-1]->outputCV(envelope[row-1]); 
+				}
+			}
+		}
+	}
+
+	if (columnToPlay == noOfColumns) {
+		if (drums[drumProgram][row-1][0] == 1) {
+			// send rising Envelope on analog out?
+			if (digitalRead(digitalInputs[1]) == 0) {
+				if(envelopeDecay < envelopeZeroDecay) {
+					envelope[row-1] = 0; // start at max and go down
+					outputs[row-1]->outputCV(envelope[row-1]); 
+				}
+			}
+		}
+	}
+
+
+
 } // rows
 
 lastColumnPlayed = now; // blir 100
