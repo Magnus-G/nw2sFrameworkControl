@@ -51,7 +51,7 @@ void loop() {
 
 	////////////////////////////////////////////////////////
 
-	int noteProgram = analogReadFunction(1, 10); // select note program
+	int noteProgram = analogReadFunction(1, 9); // select note program
 
 	int chord = analogReadFunction(3, 9); // chord structure, distances between three notes
 
