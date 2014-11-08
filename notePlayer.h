@@ -1,20 +1,23 @@
-if (trigIn == true) {
+if ((noteTriggerIn == true) || (arpTriggerIn == true)) {
 
 	int noteNumber[4];
+
+	int currentArpStep = noteDistances[chord][arpStep];
+	Serial.println(currentArpStep);
 
 	//////////////////////////////////////////////////////
 
 	// Read note from A5 if Digital In 7 is ON. i.e. external reading.
 	if (digitalRead(digitalInputs[8]) == 1) {
 		for(int i=0; i<4; i++) {
-			noteNumber[i] = (notes1[noteProgram][noteIn] + noteDistances[chord][i] + baseNote); // blir en siffra från notes-arrayen
+			noteNumber[i] = (notes1[noteProgram][noteIn] + noteDistances[chord][i] + baseNote + currentArpStep); // blir en siffra från notes-arrayen
 		}
 	}
 
 	// Read note from array notes[][] if Digital In 7 is OFF. i.e. auto run through note pattern
 	else {
 		for(int i=0; i<4; i++) {
-			noteNumber[i] = (notes1[noteProgram][noteColumnToPlay] + noteDistances[chord][i] + baseNote); // blir en siffra från notes-arrayen
+			noteNumber[i] = (notes1[noteProgram][noteColumnToPlay] + noteDistances[chord][i] + baseNote + currentArpStep); // blir en siffra från notes-arrayen
 		}
 	}
 
@@ -73,5 +76,6 @@ if (trigIn == true) {
 		digitalWrite(digitalOutputs[11], LOW);	
 	}
 
-	trigIn = false;
+	noteTriggerIn = false;
+	arpTriggerIn = false;
 }

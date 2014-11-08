@@ -13,14 +13,18 @@
 #include "setup.h";
 
 int clockState = false;
-int trigIn = false;
+int noteTriggerIn = false;
+
+int arpClockState = false;
+int arpTriggerIn = false;
+int arpStep = 0;
 
 void loop() { 
 
 	if (digitalRead(digitalInputs[5]) == 1) {
 		if (clockState == false) {
 			clockState = true;
-			trigIn = true;
+			noteTriggerIn = true;
 		}
 	}
 
@@ -30,25 +34,28 @@ void loop() {
 		}
 	}
 
+	if (digitalRead(digitalInputs[4]) == 1) {
+		if (arpClockState == false) {
+			arpClockState = true;
+			arpTriggerIn = true;
+			arpStep ++;
+			if(arpStep == 3) {
+				arpStep = 0;
+			}
+		}
+	}
+
+	if (digitalRead(digitalInputs[4]) == 0) {
+		if (arpClockState == true) {
+			arpClockState = false;
+		}
+	}
+
 	// Master clock
 	int now = millis(); 
 
-	////////////////////////////////////////////////////////
-	//
 	//    ANALOG IN POTS (AnalogIn, ShiftRegister) 
-	//
 	////////////////////////////////////////////////////////
-
-	// Start out by setting the clockState to false in init() 
-	// Every loop() check digitalRead(clkIn) 
-	// If clkIn true AND clockState is false, then that's the rising edge. 
-	  
-	//  - On the rising edge set clockState to true 
-	//  - On the rising edge do whatever you need to do on a clock cycle 
-
-	// If clkIn is true and clockState is true, then it's not a rising edge or a falling edge so do nothing. 
-	// If clkIn is false and clockState is true, then it's a falling edge 
-	//  - On the falling edge reset clockState to false 
 
 	int drumProgram = 0;
 
@@ -80,7 +87,7 @@ void loop() {
 	if (now > timerTestValue) {
 		#include "drumPlayer.h"
 	}
-	
+
 	#include "notePlayer.h";
 
 	// each decay increment will be this long
