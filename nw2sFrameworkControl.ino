@@ -12,7 +12,23 @@
 #include "notePlayerSetup.h";
 #include "setup.h";
 
+int clockState = false;
+int trigIn = false;
+
 void loop() { 
+
+	if (digitalRead(digitalInputs[5]) == 1) {
+		if (clockState == false) {
+			clockState = true;
+			trigIn = true;
+		}
+	}
+
+	if (digitalRead(digitalInputs[5]) == 0) {
+		if (clockState == true) {
+			clockState = false;
+		}
+	}
 
 	// Master clock
 	int now = millis(); 
@@ -62,9 +78,10 @@ void loop() {
 	////////////////////////////////////////////////////////
 
 	if (now > timerTestValue) {
-		#include "notePlayer.h";
 		#include "drumPlayer.h"
 	}
+	
+	#include "notePlayer.h";
 
 	// each decay increment will be this long
 	int envelopeIncrementValue = delayTimeConstrained / envelopeIncrementSteps;

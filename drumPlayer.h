@@ -2,6 +2,8 @@ for (int row=1; row<noOfRows; row++) { // vertical, outputs. start with output 0
 
 	int patternStart = 1;
 
+
+
 	// will the program run for this column?
 	if (randValueRemove > randRemove) {
 
@@ -16,7 +18,6 @@ for (int row=1; row<noOfRows; row++) { // vertical, outputs. start with output 0
 
 			// send falling Envelope on analog out?
 			else if (digitalRead(digitalInputs[1]) == 0) {
-
 				if(envelopeDecay > envelopeZeroDecay) {
 					envelope[row-1] = envelopeMax; // start at max and go down
 					outputs[row-1]->outputCV(envelope[row-1]); 
@@ -49,6 +50,8 @@ for (int row=1; row<noOfRows; row++) { // vertical, outputs. start with output 0
 
 
 
+
+	// Rising envelopes
 	if (columnToPlay < noOfColumns) {
 		if (drums[drumProgram][row-1][columnToPlay] == 1) {
 			// send rising Envelope on analog out?
@@ -61,6 +64,7 @@ for (int row=1; row<noOfRows; row++) { // vertical, outputs. start with output 0
 		}
 	}
 
+	// if we are playing the last column we have to check the first position instead of on that doesn't exist
 	if (columnToPlay == noOfColumns) {
 		if (drums[drumProgram][row-1][0] == 1) {
 			// send rising Envelope on analog out?
