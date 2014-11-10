@@ -12,6 +12,18 @@ int noteDistances[noOfChords][4] = {
 	{0, 7, 10, 12},
 	{0, 7, 12, 12}
 };
+
+int clockState = false;
+int noteTriggerIn = false;
+
+int arpClockState = false;
+int arpTriggerIn = false;
+int arpStep = 0;
+
+int pauseState = false;
+int pauseTriggerIn = false;
+int pauseNumberOfSteps = 0;
+
 // int noteJumps[4] = {0, 0, 2, 2};
 
 const int noteSequenceLength = 32;

@@ -12,14 +12,36 @@
 #include "notePlayerSetup.h";
 #include "setup.h";
 
-int clockState = false;
-int noteTriggerIn = false;
-
-int arpClockState = false;
-int arpTriggerIn = false;
-int arpStep = 0;
-
 void loop() { 
+
+	int arpType = analogReadFunction(7, 10);
+
+	if (digitalRead(digitalInputs[3]) == 1) {
+		if (pauseState == false) {
+			pauseState = true;
+			pauseTriggerIn = true;
+			pauseNumberOfSteps = 1;
+		}
+	}
+
+	if (digitalRead(digitalInputs[3]) == 0) {
+		if (pauseState == true) {
+			pauseState = false;
+		}
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+	// trig note with input
 
 	if (digitalRead(digitalInputs[5]) == 1) {
 		if (clockState == false) {
@@ -34,14 +56,40 @@ void loop() {
 		}
 	}
 
+	// Arpeggio
+
 	if (digitalRead(digitalInputs[4]) == 1) {
 		if (arpClockState == false) {
 			arpClockState = true;
 			arpTriggerIn = true;
-			arpStep ++;
-			if(arpStep == 3) {
-				arpStep = 0;
+
+
+
+
+
+
+
+			if (arpType == 0) { // Rising arp
+				if(arpStep > 3) {
+					arpStep = 0;
+				}
 			}
+
+
+			// if (arpType == 1) { // Falling arp
+			// 	if(arpStep < 0) {
+			// 		arpStep = 3;
+			// 		// Serial.print("arpStep ");
+			// 		// Serial.println(arpStep);
+			// 	}
+			// }
+
+
+
+
+
+
+
 		}
 	}
 
@@ -97,18 +145,6 @@ void loop() {
 
 		// envelopes or levels
 		if (digitalRead(digitalInputs[1]) == 0) {
-
-
-			// int envelope[noOfRows] = {0,0,0,0,0,0,0,0,0,0,0};
-			// int envelopeMax = 2560;
-			// int envelopeIncrementSteps = 80;
-			// int envelopeIncrementCurrentOne = 1;
-
-			// Serial.print("envelopeDecay: ");
-			// Serial.println(envelopeDecay);
-
-			// Serial.print("envelopeZeroDecay: ");
-			// Serial.println(envelopeZeroDecay);
 
 			// decrease the Envelopes
 			if(envelopeDecay > envelopeZeroDecay) {

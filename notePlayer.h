@@ -3,7 +3,6 @@ if ((noteTriggerIn == true) || (arpTriggerIn == true)) {
 	int noteNumber[4];
 
 	int currentArpStep = noteDistances[chord][arpStep];
-	Serial.println(currentArpStep);
 
 	//////////////////////////////////////////////////////
 
@@ -27,34 +26,37 @@ if ((noteTriggerIn == true) || (arpTriggerIn == true)) {
 
 	//////////////////////////////////////////////////////
 
-	// ASR Active
-	if (digitalRead(digitalInputs[7]) == 1) {
+	if (pauseNumberOfSteps == 0) {
 
-		int randValueSkipNote = random(0, 512);
-		int randomSkipNote = analogReadFunction(7, 2); // AnalogIn, ShiftRegister
+		// ASR Active
+		if (digitalRead(digitalInputs[7]) == 1) {
 
-		if (randValueSkipNote > randomSkipNote) {
-			if (asr == 0) { 
-				playNoteTriggerFunction(12, 0);
-			}
-			if (asr == 1) { 
-				playNoteTriggerFunction(13, 1);
-			}
-			if (asr == 2) { 
-				playNoteTriggerFunction(14, 2);
-			}
-			if (asr == 3) { 
-				playNoteTriggerFunction(15, 3);
+			int randValueSkipNote = random(0, 512);
+			int randomSkipNote = analogReadFunction(7, 2); // AnalogIn, ShiftRegister
+
+			if (randValueSkipNote > randomSkipNote) {
+				if (asr == 0) { 
+					playNoteTriggerFunction(12, 0);
+				}
+				if (asr == 1) { 
+					playNoteTriggerFunction(13, 1);
+				}
+				if (asr == 2) { 
+					playNoteTriggerFunction(14, 2);
+				}
+				if (asr == 3) { 
+					playNoteTriggerFunction(15, 3);
+				}
 			}
 		}
-	}
 
-	// ASR Inactive
-	else {
-		playNoteTriggerFunction(12, 0);
-		playNoteTriggerFunction(13, 1);
-		playNoteTriggerFunction(14, 2);
-		playNoteTriggerFunction(15, 3);
+		// ASR Inactive
+		else {
+			playNoteTriggerFunction(12, 0);
+			playNoteTriggerFunction(13, 1);
+			playNoteTriggerFunction(14, 2);
+			playNoteTriggerFunction(15, 3);
+		}
 	}
 
 	asr++;
@@ -76,6 +78,32 @@ if ((noteTriggerIn == true) || (arpTriggerIn == true)) {
 		digitalWrite(digitalOutputs[11], LOW);	
 	}
 
+
+	if (arpType == 0) { // Rising
+		arpStep++;
+	}
+
+	if (arpType == 1) { // Falling
+		arpStep--;
+	}
+
+	// Reset all note related input triggers
 	noteTriggerIn = false;
 	arpTriggerIn = false;
+	pauseTriggerIn = false;
+
+	Serial.println(pauseNumberOfSteps);
+
+	pauseNumberOfSteps--;
+	if (pauseNumberOfSteps < 0) {
+		pauseNumberOfSteps = 0;
+	}
 }
+
+
+
+
+
+
+
+
