@@ -1,24 +1,46 @@
 if ((noteTriggerIn == true) || (arpTriggerIn == true)) {
 
-	int noteNumber[4];
+	int noteNumber[4]; // The four output notes
 
-	int currentArpStep = noteDistances[chord][arpStep];
+	if (digitalRead(digitalInputs[4]) == 1) {
+		currentArpStep = noteDistances[chord][arpStep];
+	}
 
 	//////////////////////////////////////////////////////
 
-	// Read note from A5 if Digital In 7 is ON. i.e. external reading.
-	if (digitalRead(digitalInputs[8]) == 1) {
+
+	// CHORDS THAT ARE CONSIDERING THE SCALE
+	
+	// Arp	
+	if (digitalRead(digitalInputs[4]) == 1) {
 		for(int i=0; i<4; i++) {
-			noteNumber[i] = (notes1[noteProgram][noteIn] + noteDistances[chord][i] + baseNote + currentArpStep); // blir en siffra från notes-arrayen
+			int noteDistance = noteDistances[chord][i];
+			noteNumber[i] = (notes1[noteProgram][noteIn + noteDistance] + baseNote + currentArpStep); // blir en siffra från notes-arrayen
 		}
 	}
 
-	// Read note from array notes[][] if Digital In 7 is OFF. i.e. auto run through note pattern
+	// Just note step. No arp. Incoming note
 	else {
 		for(int i=0; i<4; i++) {
-			noteNumber[i] = (notes1[noteProgram][noteColumnToPlay] + noteDistances[chord][i] + baseNote + currentArpStep); // blir en siffra från notes-arrayen
+			int noteDistance = noteDistances[chord][i];
+			noteNumber[i] = (notes1[noteProgram][noteIn + noteDistance] + baseNote); // blir en siffra från notes-arrayen
 		}
 	}
+
+	// BACKUP FOR CREATING CHORDS THAT ARE DEAD RECONING, NOT CONSIDERING THE SCALE
+
+	// if (digitalRead(digitalInputs[4]) == 1) {
+	// 	for(int i=0; i<4; i++) {
+	// 		noteNumber[i] = (notes1[noteProgram][noteIn] + noteDistances[chord][i] + baseNote + currentArpStep); // blir en siffra från notes-arrayen
+	// 	}
+	// }
+
+	// else {
+	// 	for(int i=0; i<4; i++) {
+	// 		noteNumber[i] = (notes1[noteProgram][noteIn] + noteDistances[chord][i] + baseNote); // blir en siffra från notes-arrayen
+	// 	}
+	// }
+	
 
 	for(int i=0; i<4; i++) {
 		noteThatGoesOut[i] = semitones[noteNumber[i]]; // blir cv-valuet från array
@@ -29,7 +51,7 @@ if ((noteTriggerIn == true) || (arpTriggerIn == true)) {
 	if (pauseNumberOfSteps == 0) {
 
 		// ASR Active
-		if (digitalRead(digitalInputs[7]) == 1) {
+		if (digitalRead(digitalInputs[2]) == 1) {
 
 			int randValueSkipNote = random(0, 512);
 			int randomSkipNote = analogReadFunction(7, 2); // AnalogIn, ShiftRegister
@@ -60,14 +82,16 @@ if ((noteTriggerIn == true) || (arpTriggerIn == true)) {
 	}
 
 	asr++;
-
-	if (asr == 4) { 
+	if (asr == asrLength) { 
 		asr = 0;
 	}
 
 	//////////////////////////////////////////////////////
 
 	noteColumnToPlay++;
+
+	// Serial.println(noteColumnToPlay);
+
 
 	if (noteColumnToPlay >= noteSequenceLength) {
 		noteColumnToPlay = 0;
@@ -91,8 +115,6 @@ if ((noteTriggerIn == true) || (arpTriggerIn == true)) {
 	noteTriggerIn = false;
 	arpTriggerIn = false;
 	pauseTriggerIn = false;
-
-	Serial.println(pauseNumberOfSteps);
 
 	pauseNumberOfSteps--;
 	if (pauseNumberOfSteps < 0) {

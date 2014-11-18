@@ -16,29 +16,25 @@ void loop() {
 
 	int arpType = analogReadFunction(7, 10);
 
-	if (digitalRead(digitalInputs[3]) == 1) {
+	int pauseTime = analogReadFunction(9, 9);
+
+	int asrLength = analogReadFunction(8, 9) + 1;
+
+	Serial.println(asrLength);
+
+	if (digitalRead(digitalInputs[7]) == 1) {
 		if (pauseState == false) {
 			pauseState = true;
 			pauseTriggerIn = true;
-			pauseNumberOfSteps = 1;
+			pauseNumberOfSteps = pauseTime;
 		}
 	}
 
-	if (digitalRead(digitalInputs[3]) == 0) {
+	if (digitalRead(digitalInputs[7]) == 0) {
 		if (pauseState == true) {
 			pauseState = false;
 		}
 	}
-
-
-
-
-
-
-
-
-
-
 
 
 	// trig note with input
@@ -63,32 +59,11 @@ void loop() {
 			arpClockState = true;
 			arpTriggerIn = true;
 
-
-
-
-
-
-
 			if (arpType == 0) { // Rising arp
 				if(arpStep > 3) {
 					arpStep = 0;
 				}
 			}
-
-
-			// if (arpType == 1) { // Falling arp
-			// 	if(arpStep < 0) {
-			// 		arpStep = 3;
-			// 		// Serial.print("arpStep ");
-			// 		// Serial.println(arpStep);
-			// 	}
-			// }
-
-
-
-
-
-
 
 		}
 	}
@@ -122,13 +97,13 @@ void loop() {
 
 	////////////////////////////////////////////////////////
 
-	int noteProgram = analogReadFunction(1, 9); // select note program
+	int noteProgram = analogReadFunction(1, 7); // select note program, scale
 
-	int chord = analogReadFunction(3, 9); // chord structure, distances between three notes
+	int chord = analogReadFunction(3, 8); // chord structure, distances between three notes
 
-	int baseNote = analogReadFunction(5, 7); // send in cv to set base note (transposing first note)
+	int baseNote = analogReadFunction(5, 8); // send in cv to set base note (transposing first note)
 
-	int noteIn = analogReadFunction(11, 7);	 // if digital 8 is on then external control of play order
+	int noteIn = analogReadFunction(11, 6);	 // if digital 8 is on then external control of play order
 
 	////////////////////////////////////////////////////////
 

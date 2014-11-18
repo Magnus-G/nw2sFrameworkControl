@@ -13,7 +13,7 @@ for (int row=1; row<noOfRows; row++) { // vertical, outputs. start with output 0
 
 			// send base note levels on analog out
 			if (digitalRead(digitalInputs[1]) == 1) {
-				outputs[row-1]->outputCV(semitones[notes1[noteProgram][noteColumnToPlay] + noteDistances[chord][0] + baseNote]); 
+				// outputs[row-1]->outputCV(semitones[notes1[noteProgram][noteColumnToPlay] + noteDistances[chord][0] + baseNote]); 
 			}
 
 			// send falling Envelope on analog out?

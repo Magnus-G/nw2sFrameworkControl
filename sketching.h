@@ -11,18 +11,7 @@
 // int patternStart = constrain(patternStartFlipped, 1, 150);
 // int patternStart = 16 - ();
 
-// 0		4096
-// 1 	2048
-// 2 	1024
-// 3		512
-// 4 	256
-// 5 	128
-// 6 	64
-// 7 	32
-// 8	 	16
-// 9	  8
-// 10 	4
-// 11 	2
+
 
 0		2048
 1 	1024
