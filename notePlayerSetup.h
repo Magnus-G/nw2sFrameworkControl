@@ -14,7 +14,7 @@ int noteDistances[noOfChords][4] = {
 	{0, 3, 7, 12},
 	{0, 5, 9, 12},
 	{0, 7, 10, 12},
-	{0, 7, 12, 12}
+	{10, 10, 10, 10}
 };
 
 int clockState = false;
