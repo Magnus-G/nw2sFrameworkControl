@@ -1,8 +1,9 @@
-if ((noteTriggerIn == true) || (arpTriggerIn == true)) {
+if ((noteTriggerIn == true) || (arpTriggerIn == true) || (incomingNoteOn == 1)) {
 
 	int noteNumber[4]; // The four output notes
 
-	if (digitalRead(digitalInputs[4]) == 1) {
+	// if Arp is on
+	if (arpOn) {
 		currentArpStep = noteDistances[chord][arpStep];
 	}
 
@@ -12,7 +13,7 @@ if ((noteTriggerIn == true) || (arpTriggerIn == true)) {
 	// CHORDS THAT ARE CONSIDERING THE SCALE
 	
 	// Arp	
-	if (digitalRead(digitalInputs[4]) == 1) {
+	if (arpOn) {
 		for(int i=0; i<4; i++) {
 			int noteDistance = noteDistances[chord][i];
 			noteNumber[i] = (notes1[noteProgram][noteIn + noteDistance] + baseNote + currentArpStep); // blir en siffra från notes-arrayen
@@ -20,7 +21,7 @@ if ((noteTriggerIn == true) || (arpTriggerIn == true)) {
 	}
 
 	// Just note step. No arp. Incoming note
-	else {
+	else if (incomingNoteOn) {
 		for(int i=0; i<4; i++) {
 			int noteDistance = noteDistances[chord][i];
 			noteNumber[i] = (notes1[noteProgram][noteIn + noteDistance] + baseNote); // blir en siffra från notes-arrayen
@@ -51,7 +52,7 @@ if ((noteTriggerIn == true) || (arpTriggerIn == true)) {
 	if (pauseNumberOfSteps == 0) {
 
 		// ASR Active
-		if (digitalRead(digitalInputs[2]) == 1) {
+		if (asrActive) {
 
 			int randValueSkipNote = random(0, 512);
 			int randomSkipNote = analogReadFunction(7, 2); // AnalogIn, ShiftRegister
@@ -97,10 +98,10 @@ if ((noteTriggerIn == true) || (arpTriggerIn == true)) {
 		noteColumnToPlay = 0;
 	}
 
-	if ((notes1[noteProgram][noteColumnToPlay] != 66) && playThisNote) {
-		digitalWrite(digitalOutputs[11], HIGH);
-		digitalWrite(digitalOutputs[11], LOW);	
-	}
+	// if ((notes1[noteProgram][noteColumnToPlay] != 66) && playThisNote) {
+	// 	digitalWrite(digitalOutputs[11], HIGH);
+	// 	digitalWrite(digitalOutputs[11], LOW);	
+	// }
 
 
 	if (arpType == 0) { // Rising

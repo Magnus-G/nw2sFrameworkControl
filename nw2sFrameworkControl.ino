@@ -14,13 +14,46 @@
 
 void loop() { 
 
+	if (digitalRead(digitalInputs[4]) == 1) {
+		arpOn = 1;
+	}
+
+	else {
+		arpOn = 0;	
+	}
+
+	if (digitalRead(digitalInputs[5]) == 1) {
+		noteOn = 1;
+	}
+
+	else {
+		noteOn = 0;	
+	}
+
+	if (digitalRead(digitalInputs[8]) == 1) {
+		incomingNoteOn = 1;
+	}
+
+	else {
+		incomingNoteOn = 0;	
+	}
+
+	if (digitalRead(digitalInputs[2]) == 1) {
+		asrActive = 1;
+	}
+
+	else {
+		asrActive = 0;	
+	}
+
+
 	int arpType = analogReadFunction(7, 10);
 
 	int pauseTime = analogReadFunction(9, 9);
 
 	int asrLength = analogReadFunction(8, 9) + 1;
 
-	Serial.println(asrLength);
+	// Serial.println(asrLength);
 
 	if (digitalRead(digitalInputs[7]) == 1) {
 		if (pauseState == false) {

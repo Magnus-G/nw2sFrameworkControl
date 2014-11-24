@@ -1,5 +1,5 @@
+int noteOn = 0;
 int noteColumnToPlay = 0;
-int asr = 0;
 
 int noteThatGoesOut[4];
 int noteThatWentOut[4];
@@ -20,10 +20,24 @@ int noteDistances[noOfChords][4] = {
 int clockState = false;
 int noteTriggerIn = false;
 
+///////
+
+int arpOn = 0;
 int currentArpStep = 0;
 int arpClockState = false;
 int arpTriggerIn = false;
 int arpStep = 0;
+
+///////
+
+int incomingNoteOn = 0;
+
+///////
+
+int asrActive = 0;
+int asr = 0;
+
+///////
 
 int pauseState = false;
 int pauseTriggerIn = false;
