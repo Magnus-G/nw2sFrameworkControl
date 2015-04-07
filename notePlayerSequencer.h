@@ -20,6 +20,7 @@ if (digitalRead(digitalInputs[1]) == 1) {
 	}
 }
 
+
 if (digitalRead(digitalInputs[1]) == 0) {
 	if (sequencerClockState1 == true) {
 		sequencerClockState1 = false;
