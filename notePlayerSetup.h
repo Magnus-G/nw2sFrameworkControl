@@ -70,3 +70,26 @@ int notes1[noOfNotePrograms][noteSequenceLength] = {
 	{ 1,	3,	5,	7,	9,  11,	 13,	15, 17,	19,	21,	23,	25,	27,	29,	31,	33,	35,	37,	39,	41,	43,	45,	47,	49,	51,	53,	55,	57,	59,	61,	63 }  // Whole
 
 };
+
+
+//////////////// Sequencer
+
+const int noteSequenceLengthSequencer = 8;
+int noteColumnToPlaySequencer = 0;
+int pauseSequencer[8] = {0,0,0,0,0,0,0,0};
+long stepsSequencer = 0;
+
+int noteNumber[4]; // The four output notes
+
+int sequencerOn = 0;
+int sequencerTriggerIn = false;
+
+int sequencerTrigIn1 = false;
+int sequencerClockState1 = false;
+
+int sequencerTrigIn2 = false;
+int sequencerClockState2 = false;
+
+int sequencerNoteDistance = 0;
+
+
