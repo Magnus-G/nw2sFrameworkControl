@@ -22,12 +22,6 @@ int noteTriggerIn = false;
 
 ///////
 
-int arpOn = 0;
-int currentArpStep = 0;
-int arpClockState = false;
-int arpTriggerIn = false;
-int arpStep = 0;
-
 ///////
 
 int incomingNoteOn = 0;

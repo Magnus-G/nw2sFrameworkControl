@@ -8,10 +8,12 @@
 
 #include "nw2sInputsAndOutputs.h";
 #include "variables.h";
-#include "drumSetup.h";
+#include "drumPlayerSetup.h";
 #include "envelopeSetup.h";
 #include "notePlayerSetup.h";
+#include "arpSetup.h";
 #include "setup.h";
+#include "audioInToAudioOutSetup.h"
 
 void loop() { 
 
@@ -22,25 +24,45 @@ void loop() {
 	int timerTestValue = delayTimeConstrained + lastColumnPlayed; 
 	////////////////////////////////////////////////////////
 
-	#include "drumPlayer.h"
+	#include "removeHit.h"
+	#include "addHit.h"
+	
+	if (now > timerTestValue) {
+		#include "drumPlayer.h"
+	}
+
+	int analogOutDelayTime = ::analogRead(DUE_IN_A11);
+	int analogOutDelayTimeConstrained = constrain(analogOutDelayTime, 0, 500); 
+
+	// all analog outs get notes on digital out drumshift
+	// for(int i=0; i<13; i++) {
+	// 	if (now > (analogOutTimers[i] + analogOutDelayTimeConstrained)) {
+	// 		outputs[i]->outputCV(0);
+	// 	}
+	// }
+
 	// #include "drumPlayerMath.h"
 	// #include "drumPlayerPatterns.h"
+	
 	// #include "notePlayer.h";
-	#include "notePlayerSequencer.h";
+	// #include "notePlayerSequencer.h";
+	#include "notePlayerSetChord.h";
 	// #include "envelopeProgram.h";
 
+	#include "audioInToAudioOut.h";
 
 } // loop
 
 int analogReadFunction(int input, int shift) {
-	int settingFlipped = ::analogRead(inputs[input]); // Around 2011 - 0
-	int setting = 2020 - settingFlipped; // 0 - 2011
-	int settingConstrained = constrain(setting, 0, 2047);  // 0 - 2047
-	int settingScaled = settingConstrained >> shift; // 1 - 16
-	// int result = constrain(settingScaled, 0, 15); // force it to be between 0 and 15	
-	int result = settingScaled; // force it to be between 0 and 15	
-	return result;
+    int settingFlipped = ::analogRead(inputs[input]); // Around 2011 - 0
+    int setting = 2020 - settingFlipped; // 0 - 2011
+    int settingConstrained = constrain(setting, 0, 2047);  // 0 - 2047
+    int settingScaled = settingConstrained >> shift; // 1 - 16
+    // int result = constrain(settingScaled, 0, 15); // force it to be between 0 and 15 
+    int result = settingScaled; // force it to be between 0 and 15  
+    return result;
 }
+
 
 int playNoteTriggerFunction(int output, int asrStep) {
 
